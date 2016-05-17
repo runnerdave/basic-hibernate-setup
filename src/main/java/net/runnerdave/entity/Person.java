@@ -1,8 +1,9 @@
 package net.runnerdave.entity;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
 
 public class Person implements Auditable {
 	
@@ -11,8 +12,9 @@ public class Person implements Auditable {
 	private String lastName;
 	private IdCard idCard;
 	private Set<Phone> phones = new HashSet<>();
-	private LocalDateTime created;
-	private LocalDateTime lastUpdate;
+	
+	private Date created;
+	private Date lastUpdate;
 
 	public Long getId() {
 		return id;
@@ -55,23 +57,23 @@ public class Person implements Auditable {
 	}
 
 	@Override
-	public LocalDateTime getCreated() {
+	public Date getCreated() {
 		return this.created;
 	}
 
 	@Override
-	public void setCreated(LocalDateTime created) {
+	public void setCreated(Date created) {
 		this.created = created;
 		
 	}
 
 	@Override
-	public LocalDateTime getLastUpdate() {
+	public Date getLastUpdate() {
 		return this.lastUpdate;
 	}
 
 	@Override
-	public void setLastUpdate(LocalDateTime lastUpdate) {
+	public void setLastUpdate(Date lastUpdate) {
 		this.lastUpdate = lastUpdate;
 		
 	}

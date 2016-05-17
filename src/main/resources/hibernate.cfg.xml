@@ -33,8 +33,12 @@
         <property name="format_sql">true</property>
 
         <property name="hbm2ddl.auto">create</property>
+        
+        <mapping class="net.runnerdave.entity.Person"/>
 
         <mapping resource="hibernate-mapping.xml"/>
+        
+        
 
     </session-factory>
 

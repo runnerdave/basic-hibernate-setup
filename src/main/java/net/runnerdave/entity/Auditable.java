@@ -1,10 +1,10 @@
 package net.runnerdave.entity;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 public interface Auditable {
-	public LocalDateTime getCreated();
-	public void setCreated(LocalDateTime created);
-	public LocalDateTime getLastUpdate();
-	public void setLastUpdate(LocalDateTime lastUpdate);
+	public Date getCreated();
+	public void setCreated(Date created);
+	public Date getLastUpdate();
+	public void setLastUpdate(Date lastUpdate);
 }

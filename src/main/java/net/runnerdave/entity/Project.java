@@ -1,7 +1,7 @@
 package net.runnerdave.entity;
 
-import java.time.LocalDateTime;
 import java.time.Period;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,8 +10,8 @@ public class Project implements Auditable {
 	private Long id;
 	private String title;
 	private Set<Geek> geeks = new HashSet<Geek>();
-	private LocalDateTime created;
-	private LocalDateTime lastUpdate;
+	private Date created;
+	private Date lastUpdate;
 	private Period period;
 	
 	public Long getId() {
@@ -34,23 +34,23 @@ public class Project implements Auditable {
 	}
 	
 	@Override
-	public LocalDateTime getCreated() {
+	public Date getCreated() {
 		return this.created;
 	}
 
 	@Override
-	public void setCreated(LocalDateTime created) {
+	public void setCreated(Date created) {
 		this.created = created;
 		
 	}
 
 	@Override
-	public LocalDateTime getLastUpdate() {
+	public Date getLastUpdate() {
 		return this.lastUpdate;
 	}
 
 	@Override
-	public void setLastUpdate(LocalDateTime lastUpdate) {
+	public void setLastUpdate(Date lastUpdate) {
 		this.lastUpdate = lastUpdate;
 		
 	}

@@ -3,6 +3,7 @@ package net.runnerdave;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -103,8 +104,7 @@ public class App {
 			Person person = new Person();
 			person.setFirstName("Homer");
 			person.setLastName("Simpson");
-			person.setCreated(LocalDateTime.now());
-			person.setLastUpdate(LocalDateTime.now());
+			person.setCreated(new Date());
 			IdCard idCard = new IdCard();
 			idCard.setIdNumber("4711");
 			idCard.setIssueDate(LocalDateTime.now());

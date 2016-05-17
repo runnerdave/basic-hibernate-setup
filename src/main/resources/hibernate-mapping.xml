@@ -9,5 +9,7 @@
 		</id>
 		<property name="firstName" column="FIRST_NAME" />
 		<property name="lastName" column="LAST_NAME" />
+		<property name="created" column="CREATED" type="timestamp"/>
+        <property name="lastUpdate" column="LAST_UPDATE" type="timestamp"/>
 	</class>
 </hibernate-mapping>
