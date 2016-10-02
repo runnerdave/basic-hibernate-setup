@@ -4,6 +4,7 @@ a basic hibernate setup to be used for simple projects
 ## build and run
 
 $ mvn clean install
+
 $ java -jar target/hibernate-1.0-SNAPSHOT-jar-with-dependencies.jar
 
 ## see stuff in the db
