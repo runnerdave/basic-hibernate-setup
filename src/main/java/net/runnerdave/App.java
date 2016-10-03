@@ -45,7 +45,7 @@ public class App {
 			sessionFactory = configuration.buildSessionFactory(serviceRegistry);
 			session = sessionFactory.openSession();
 			persistPerson(session);
-//			persistGeek(session);
+			persistGeek(session);
 //			addPhones(session);
 //			createProject(session);
 //			loadProject(session);
@@ -126,16 +126,19 @@ public class App {
 		geek.setFirstName("Gavin");
 		geek.setLastName("Coffee");
 		geek.setFavouriteProgrammingLanguage("Java");
+		geek.setCreated(new Date());
 		session.save(geek);
 		geek = new Geek();
 		geek.setFirstName("Thomas");
 		geek.setLastName("Micro");
 		geek.setFavouriteProgrammingLanguage("C#");
+		geek.setCreated(new Date());
 		session.save(geek);
 		geek = new Geek();
 		geek.setFirstName("Christian");
 		geek.setLastName("Cup");
 		geek.setFavouriteProgrammingLanguage("Java");
+		geek.setCreated(new Date());
 		session.save(geek);
 		session.getTransaction().commit();
 	}

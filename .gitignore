@@ -10,6 +10,6 @@ buildNumber.properties
 .classpath
 .project
 *.iml
-.settings
+.settings/
 
 
