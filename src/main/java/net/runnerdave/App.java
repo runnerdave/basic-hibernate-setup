@@ -110,6 +110,7 @@ public class App {
 			idCard.setIssueDate(LocalDateTime.now());
 			person.setIdCard(idCard);
 			session.save(person);
+			session.save(idCard); //notice need to save both, can be removed if used cascade in many-on-one config
 			System.out.println(person.getId());
 			transaction.commit();
 		} catch (Exception e) {

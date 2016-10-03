@@ -3,31 +3,43 @@
 "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="net.runnerdave.entity">
-	<class name="Person" table="T_PERSON">
+	<class name="IdCard" table="T_ID_CARD">
 		<id name="id" column="ID">
 			<generator class="sequence" />
 		</id>
-		<!-- only used for subclass (one table) and joined-subclass (two tables) strategies, 
-			remove for union-subclass -->
-		<!--  discriminator column="PERSON_TYPE" type="string" /-->
+		<property name="idNumber" column="ID_NUMBER"/>
+		<property name="valid"/>
+		<property name="issueDate" column="ISSUE_DATE"/>		
+	</class>
+	<class name="Person" table="T_PERSON">
+		<id name="id" column="ID">
+			<generator class="native" />
+		</id>
+		<!-- only used for subclass (one table) and joined-subclass (two tables) 
+			strategies, remove for union-subclass -->
+		<discriminator column="PERSON_TYPE" type="string" />
 		<property name="firstName" column="FIRST_NAME" />
 		<property name="lastName" column="LAST_NAME" />
+		
+		<many-to-one name="idCard" column="ID_ID_CARD" unique="true"/>
+		
 		<property name="created" column="CREATED" type="timestamp" />
 		<property name="lastUpdate" column="LAST_UPDATE" type="timestamp" />
 
 		<!-- one table with all the data, uses <generator class="native" /> -->
-		<!-- subclass name="Geek" extends="Person"> <property name="favouriteProgrammingLanguage" 
-			column="FAV_PROG_LANG"/> </subclass> -->
+		<subclass name="Geek" extends="Person"> <property name="favouriteProgrammingLanguage" 
+			column="FAV_PROG_LANG"/> </subclass>
 
 		<!-- two tables, uses <generator class="native" /> -->
-		<!-- joined-subclass name="Geek" table="T_GEEK">
-			<key column="ID_PERSON" />
+		<!-- joined-subclass name="Geek" table="T_GEEK"> <key column="ID_PERSON" 
+			/> <property name="favouriteProgrammingLanguage" column="FAV_PROG_LANG" /> 
+			</joined-subclass -->
+
+		<!-- table per class, uses <generator class="sequence" />, need to remove discriminator
+			 good for performance in large datasets -->
+		<!-- union-subclass name="Geek" table="T_GEEK">
 			<property name="favouriteProgrammingLanguage" column="FAV_PROG_LANG" />
-		</joined-subclass-->
-		
-		<!-- table per class, uses <generator class="sequence" /> good for performance in large datasets -->
-		<union-subclass name="Geek" table="T_GEEK">
-			<property name="favouriteProgrammingLanguage" column="FAV_PROG_LANG"/>
-		</union-subclass>
+		</union-subclass> -->
 	</class>
+	
 </hibernate-mapping>
