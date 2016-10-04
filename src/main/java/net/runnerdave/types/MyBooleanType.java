@@ -1,4 +1,4 @@
-package net.runnerdave.entity;
+package net.runnerdave.types;
 
 import java.io.Serializable;
 import java.sql.PreparedStatement;

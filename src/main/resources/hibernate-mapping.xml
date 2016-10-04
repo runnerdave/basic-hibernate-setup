@@ -66,5 +66,7 @@
 			<property name="startDate" column="START_DATE" />
 			<property name="endDate" column="END_DATE" />
 		</component>
+		<property name="created" column="CREATED" type="timestamp" />
+		<property name="lastUpdate" column="LAST_UPDATE" type="timestamp" />
 	</class>
 </hibernate-mapping>

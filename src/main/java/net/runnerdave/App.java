@@ -1,6 +1,5 @@
 package net.runnerdave;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
@@ -16,11 +15,12 @@ import org.hibernate.service.ServiceRegistry;
 
 import net.runnerdave.entity.Geek;
 import net.runnerdave.entity.IdCard;
-import net.runnerdave.entity.MyBooleanType;
 import net.runnerdave.entity.Period;
 import net.runnerdave.entity.Person;
 import net.runnerdave.entity.Phone;
 import net.runnerdave.entity.Project;
+import net.runnerdave.interceptor.AuditInterceptor;
+import net.runnerdave.types.MyBooleanType;
 
 /**
  * Hibernate setup harness.
@@ -42,6 +42,7 @@ public class App {
 			Configuration configuration = new Configuration();
 			configuration.configure("hibernate.cfg.xml");
 			configuration.registerTypeOverride(new MyBooleanType(), new String[]{"MyBooleanType"});
+			configuration.setInterceptor(new AuditInterceptor());
 			ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
 					.applySettings(configuration.getProperties()).build();
 			sessionFactory = configuration.buildSessionFactory(serviceRegistry);
@@ -121,7 +122,6 @@ public class App {
 			Person person = new Person();
 			person.setFirstName("Homer");
 			person.setLastName("Simpson");
-			person.setCreated(new Date());
 			IdCard idCard = new IdCard();
 			idCard.setIdNumber("4711");
 			idCard.setIssueDate(LocalDateTime.now());
@@ -144,19 +144,16 @@ public class App {
 		geek.setFirstName("Gavin");
 		geek.setLastName("Coffee");
 		geek.setFavouriteProgrammingLanguage("Java");
-		geek.setCreated(new Date());
 		session.save(geek);
 		geek = new Geek();
 		geek.setFirstName("Thomas");
 		geek.setLastName("Micro");
 		geek.setFavouriteProgrammingLanguage("C#");
-		geek.setCreated(new Date());
 		session.save(geek);
 		geek = new Geek();
 		geek.setFirstName("Christian");
 		geek.setLastName("Cup");
 		geek.setFavouriteProgrammingLanguage("Java");
-		geek.setCreated(new Date());
 		session.save(geek);
 		session.getTransaction().commit();
 	}
