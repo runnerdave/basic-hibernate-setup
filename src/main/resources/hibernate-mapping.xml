@@ -8,7 +8,7 @@
 			<generator class="sequence" />
 		</id>
 		<property name="idNumber" column="ID_NUMBER" />
-		<property name="valid" />
+		<property name="valid" column="VALID" type="MyBooleanType" />
 		<property name="issueDate" column="ISSUE_DATE" />
 	</class>
 	<class name="Person" table="T_PERSON">

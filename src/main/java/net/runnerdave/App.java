@@ -16,6 +16,7 @@ import org.hibernate.service.ServiceRegistry;
 
 import net.runnerdave.entity.Geek;
 import net.runnerdave.entity.IdCard;
+import net.runnerdave.entity.MyBooleanType;
 import net.runnerdave.entity.Period;
 import net.runnerdave.entity.Person;
 import net.runnerdave.entity.Phone;
@@ -40,6 +41,7 @@ public class App {
 		try {
 			Configuration configuration = new Configuration();
 			configuration.configure("hibernate.cfg.xml");
+			configuration.registerTypeOverride(new MyBooleanType(), new String[]{"MyBooleanType"});
 			ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
 					.applySettings(configuration.getProperties()).build();
 			sessionFactory = configuration.buildSessionFactory(serviceRegistry);
