@@ -11,4 +11,8 @@ $ java -jar target/hibernate-1.0-SNAPSHOT-jar-with-dependencies.jar
 
 $ java -cp ~/.m2/repository/com/h2database/h2/1.3.176/h2-1.3.176.jar org.h2.tools.Shell -url jdbc:h2:~/hibernate
 
+or
+
+$ java -cp /c/Users/e67997/.m2/repository/com/h2database/h2/1.3.176/h2-1.3.176.jar org.h2.tools.Shell -url jdbc:h2:~/hibernate
+
 sql> select * from t_person;

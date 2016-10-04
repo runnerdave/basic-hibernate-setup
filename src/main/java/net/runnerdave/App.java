@@ -2,7 +2,6 @@ package net.runnerdave;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Period;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -17,6 +16,7 @@ import org.hibernate.service.ServiceRegistry;
 
 import net.runnerdave.entity.Geek;
 import net.runnerdave.entity.IdCard;
+import net.runnerdave.entity.Period;
 import net.runnerdave.entity.Person;
 import net.runnerdave.entity.Phone;
 import net.runnerdave.entity.Project;
@@ -46,9 +46,9 @@ public class App {
 			session = sessionFactory.openSession();
 			persistPerson(session);
 			persistGeek(session);
-//			addPhones(session);
-//			createProject(session);
-//			loadProject(session);
+			addPhones(session);
+			createProject(session);
+			loadProject(session);
 		} catch (Exception e) {
 			LOGGER.log(Level.SEVERE, e.getMessage(), e);
 		} finally {
@@ -61,20 +61,29 @@ public class App {
 		}
 	}
 	
+	
 	private void loadProject(Session session) {
 		List<Project> projects = session.createQuery("from Project as p where p.title = ?").setString(0, "Java Project").list();
 		for (Project project : projects) {
-			System.out.println("Project: " + project.getTitle() + " starts at " + project.getPeriod().toString());
+			System.out.println("Project: " + project.getTitle() + " starts at " + project.getPeriod().getStartDate());
 		}
 		
 	}
-
+	
+	
+	/**
+	 * After calling this method, query the database to display results:
+	 * select * from t_project;
+	 * select * from t_person a, t_project b, t_geeks_projects c where a.id = c.id_geek;
+	 * @param session
+	 */
 	private void createProject(Session session) {
 		session.getTransaction().begin();
 		List<Geek> resultList = session.createQuery("from Geek as geek where geek.favouriteProgrammingLanguage = ?").setString(0, "Java").list();
 		Project project = new Project();
 		project.setTitle("Java Project");
-		Period period = Period.between(LocalDate.now(), LocalDate.now().plusWeeks(2));
+		Period period = new Period();
+		period.setStartDate(new Date());
 		project.setPeriod(period);
 		for (Geek geek : resultList) {
 			project.getGeeks().add(geek);
@@ -84,6 +93,12 @@ public class App {
 		session.getTransaction().commit();
 	}
 
+	/**
+	 * To check contents after the execution of this method you can run the following sql:
+	 * select * from t_person, t_phone where first_name = 'Homer' and t_phone.ID_PERSON = t_person.ID;
+	 * 
+	 * @param session
+	 */
 	private void addPhones(Session session) {
 		session.getTransaction().begin();
 		List<Person> resultList = session.createQuery("from Person as person where person.firstName = ?").setString(0, "Homer").list();

@@ -7,9 +7,9 @@
 		<id name="id" column="ID">
 			<generator class="sequence" />
 		</id>
-		<property name="idNumber" column="ID_NUMBER"/>
-		<property name="valid"/>
-		<property name="issueDate" column="ISSUE_DATE"/>		
+		<property name="idNumber" column="ID_NUMBER" />
+		<property name="valid" />
+		<property name="issueDate" column="ISSUE_DATE" />
 	</class>
 	<class name="Person" table="T_PERSON">
 		<id name="id" column="ID">
@@ -20,26 +20,51 @@
 		<discriminator column="PERSON_TYPE" type="string" />
 		<property name="firstName" column="FIRST_NAME" />
 		<property name="lastName" column="LAST_NAME" />
-		
-		<many-to-one name="idCard" column="ID_ID_CARD" unique="true"/>
-		
+
+		<many-to-one name="idCard" column="ID_ID_CARD" unique="true" />
+
 		<property name="created" column="CREATED" type="timestamp" />
 		<property name="lastUpdate" column="LAST_UPDATE" type="timestamp" />
 
 		<!-- one table with all the data, uses <generator class="native" /> -->
-		<subclass name="Geek" extends="Person"> <property name="favouriteProgrammingLanguage" 
-			column="FAV_PROG_LANG"/> </subclass>
+		<subclass name="Geek" extends="Person">
+			<property name="favouriteProgrammingLanguage" column="FAV_PROG_LANG" />
+			<set name="projects" inverse="true">
+				<key column="ID_GEEK" />
+				<many-to-many column="ID_PROJECT" class="Project" />
+			</set>
+		</subclass>
 
 		<!-- two tables, uses <generator class="native" /> -->
 		<!-- joined-subclass name="Geek" table="T_GEEK"> <key column="ID_PERSON" 
 			/> <property name="favouriteProgrammingLanguage" column="FAV_PROG_LANG" /> 
 			</joined-subclass -->
 
-		<!-- table per class, uses <generator class="sequence" />, need to remove discriminator
-			 good for performance in large datasets -->
-		<!-- union-subclass name="Geek" table="T_GEEK">
-			<property name="favouriteProgrammingLanguage" column="FAV_PROG_LANG" />
-		</union-subclass> -->
+		<!-- table per class, uses <generator class="sequence" />, need to remove 
+			discriminator good for performance in large datasets -->
+		<!-- union-subclass name="Geek" table="T_GEEK"> <property name="favouriteProgrammingLanguage" 
+			column="FAV_PROG_LANG" /> </union-subclass> -->
 	</class>
-	
+	<class name="Phone" table="T_PHONE">
+		<id name="id" column="ID">
+			<generator class="sequence" />
+		</id>
+		<property name="number" column="NUMBER" />
+		<many-to-one name="person" column="ID_PERSON" unique="false"
+			cascade="all" />
+	</class>
+	<class name="Project" table="T_PROJECT">
+		<id name="id" column="ID">
+			<generator class="sequence" />
+		</id>
+		<property name="title" column="TITLE" />
+		<set name="geeks" table="T_GEEKS_PROJECTS">
+			<key column="ID_PROJECT" />
+			<many-to-many column="ID_GEEK" class="Geek" />
+		</set>
+		<component name="period">
+			<property name="startDate" column="START_DATE" />
+			<property name="endDate" column="END_DATE" />
+		</component>
+	</class>
 </hibernate-mapping>
